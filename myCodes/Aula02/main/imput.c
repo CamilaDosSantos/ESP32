@@ -1,26 +1,53 @@
+/*1-Faça um programa que ao manter o botão pressionado o LED
+pisca em uma frequência de 10 Hz e quando solto em 2 Hz*/
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
 #include "esp_log.h"
-#define PIN_SWITCH 15
-#define PIN_LED 23
-const char *TAG = "input.c";
 
-void app_main(void)
+#define PIN_BUTTON 15
+#define PIN_LED 23
+
+void app_main()
 {
-printf("Switch and LED\n");
-ESP_LOGI(TAG, "Starting!");
-gpio_pad_select_gpio(PIN_LED);
-gpio_set_direction(PIN_LED, GPIO_MODE_OUTPUT);
-gpio_pad_select_gpio(PIN_SWITCH);
-gpio_set_direction(PIN_SWITCH, GPIO_MODE_INPUT);
-gpio_pulldown_en(PIN_SWITCH);
-gpio_pullup_dis(PIN_SWITCH);
-while (true)
-{
-int level = gpio_get_level(PIN_SWITCH);
-gpio_set_level(PIN_LED, level);
-vTaskDelay(1);
+    gpio_pad_select_gpio(PIN_LED);                 // define o pino
+    gpio_set_direction(PIN_LED, GPIO_MODE_OUTPUT); // modo do pino -saida
+
+    gpio_pad_select_gpio(PIN_BUTTON);                // define o pino
+    gpio_set_direction(PIN_BUTTON, GPIO_MODE_INPUT); // modo do pino -entrada
+
+    gpio_pulldown_en(PIN_BUTTON);
+    gpio_pullup_dis(PIN_BUTTON);
+
+    while (1)
+    {
+
+        int qnivelPin = gpio_get_level(PIN_BUTTON);
+
+        if (qnivelPin == 1) //precionado em 2hz
+        {
+            gpio_set_level(PIN_LED, 1); //ligar led
+            vTaskDelay(pdMS_TO_TICKS(250)); // um tempo de espera
+            gpio_set_level(PIN_LED, 0); 
+            vTaskDelay(pdMS_TO_TICKS(250));
+        }
+
+        else if
+            (qnivelPin == 0) // solto em 10hz
+            {
+                gpio_set_level(PIN_LED, 1);// liga o led 
+                vTaskDelay(pdMS_TO_TICKS(50));
+                gpio_set_level(PIN_LED, 0);
+                vTaskDelay(pdMS_TO_TICKS(50));
+            }
+    }
 }
-}
+
+
+
+
+
+
+
+
