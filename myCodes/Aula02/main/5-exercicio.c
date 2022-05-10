@@ -1,6 +1,11 @@
-// 4. O ESP32 possui um sensor hall integrado. Descubra
-// como fazer leituras dele e apresente os dados a cada 500ms
+/*
 
+Faça um monitor de bateria de Li Íon.
+• Crie um circuito com um potenciômetro que simule os valores da
+bateria: 2,8V a 4,2V.
+• Com o ESP32 faça a leitura desses valores e acenda os leds de
+acordo com a tabela
+*/
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
