@@ -16,6 +16,14 @@
 #include "driver/uart.h"
 #include "string.h"
 #include "driver/gpio.h"
+#define RED "\x1b[31m" // cor 
+#define GREEN "\x1b[32m"
+#define YELLOW "\x1b[33m"
+#define BLUE "\x1b[34m"
+#define PURPLE "\x1b[35m"
+#define LIGHT_BLUE "\x1b[36m"
+#define RESET "\x1b[0m"
+
 
 static const int RX_BUF_SIZE = 1024;
 #define PURPLE
@@ -102,7 +110,7 @@ static void tx_task(void *arg)
 }
 static void rx_task(void *arg)
 {
-    static const char *RX_TASK_TAG = "LUCAS";
+    static const char *RX_TASK_TAG = "CAMILA";
     esp_log_level_set(RX_TASK_TAG, ESP_LOG_INFO);
     uint8_t *data = (uint8_t *)malloc(RX_BUF_SIZE + 1);
     while (1)
