@@ -12,6 +12,12 @@ acordo com a tabela
 #include "driver/gpio.h"
 #include "driver/adc.h"
 
+
+
+// Cayenne authentication info. This should be obtained from the Cayenne Dashboard.
+
+
+
 void app_main(void) {
     while(1) {
         int sensor = hall_sensor_read();
